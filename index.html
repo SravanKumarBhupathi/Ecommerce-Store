@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sareeloom - Premium Indian Sarees</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="announcement-bar" id="announcement-text">
+        ✨ Free Shipping on Orders Above ₹999 | Easy WhatsApp Ordering
+    </div>
+
+    <header class="header">
+        <div class="container header-content">
+            <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+            <a href="index.html" class="logo site-name-display">Sareeloom</a>
+
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop All</a></li>
+                    <li><a href="shop.html?category=Silk Sarees">Silk Sarees</a></li>
+                    <li><a href="shop.html?category=Cotton Sarees">Cotton Sarees</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="shop.html" class="icon-btn">🔍</a>
+                <a href="cart.html" class="icon-btn">
+                    🛒
+                    <span class="cart-count-badge" style="display: none;">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="mobile-nav" id="mobile-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop All Sarees</a></li>
+            <li><a href="shop.html?category=Silk Sarees">Silk Sarees</a></li>
+            <li><a href="shop.html?category=Cotton Sarees">Cotton Sarees</a></li>
+            <li><a href="shop.html?category=Banarasi Sarees">Banarasi Sarees</a></li>
+            <li><a href="cart.html">View Cart</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Elegance Woven for Every Occasion</h1>
+                    <p>Discover beautiful sarees crafted to make every moment special.</p>
+                    <a href="shop.html" class="btn btn-primary">Shop Sarees</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Shop by Category</h2>
+                <div class="category-grid">
+                    <a href="shop.html?category=Silk Sarees" class="category-card">
+                        <img src="https://images.unsplash.com/photo-1610189013444-24e031a0129c?auto=format&fit=crop&q=80&w=400" alt="Silk Sarees">
+                        <div class="category-overlay">
+                            <h3 class="category-title">Silk Sarees</h3>
+                        </div>
+                    </a>
+                    <a href="shop.html?category=Cotton Sarees" class="category-card">
+                        <img src="https://images.unsplash.com/photo-1583391733958-6512808de432?auto=format&fit=crop&q=80&w=400" alt="Cotton Sarees">
+                        <div class="category-overlay">
+                            <h3 class="category-title">Cotton Sarees</h3>
+                        </div>
+                    </a>
+                    <a href="shop.html?category=Banarasi Sarees" class="category-card">
+                        <img src="https://images.unsplash.com/photo-1610189013444-24e031a0129c?auto=format&fit=crop&q=80&w=400" alt="Banarasi Sarees">
+                        <div class="category-overlay">
+                            <h3 class="category-title">Banarasi Sarees</h3>
+                        </div>
+                    </a>
+                    <a href="shop.html?category=Party Wear" class="category-card">
+                        <img src="https://images.unsplash.com/photo-1583391733958-6512808de432?auto=format&fit=crop&q=80&w=400" alt="Party Wear">
+                        <div class="category-overlay">
+                            <h3 class="category-title">Party Wear</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background-color: var(--light-bg);">
+            <div class="container">
+                <h2 class="section-title">Featured Sarees</h2>
+                <div class="product-grid" id="featured-products">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="text-center" style="margin-top: 2rem;">
+                    <a href="shop.html" class="btn btn-outline">View All Products</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                    <h2 class="section-title">Why Shop With Us?</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                        <div>
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">✓</div>
+                            <h3>Quality Checked</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Every saree is carefully inspected before dispatch.</p>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">📱</div>
+                            <h3>Easy WhatsApp Ordering</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Simple and secure ordering directly through WhatsApp.</p>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">🚚</div>
+                            <h3>Fast Delivery</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Quick dispatch and reliable shipping across India.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3 class="site-name-display">Sareeloom</h3>
+                    <p style="color: #ccc; margin-bottom: 1rem; font-size: 0.9rem;">Premium sarees crafted with elegance and tradition.</p>
+                    <a href="#" class="btn btn-primary btn-block whatsapp-cta">Chat on WhatsApp</a>
+                </div>
+                <div class="footer-col">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="shop.html">All Sarees</a></li>
+                        <li><a href="shop.html?category=Silk Sarees">Silk Sarees</a></li>
+                        <li><a href="shop.html?category=Cotton Sarees">Cotton Sarees</a></li>
+                        <li><a href="shop.html?category=Wedding">Wedding Collection</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Help</h3>
+                    <ul>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="shipping.html">Shipping Info</a></li>
+                        <li><a href="returns.html">Returns Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span class="current-year"></span> <span class="site-name-display"></span>. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('announcement-text').textContent = window.siteConfig.FREE_SHIPPING_TEXT + " | Easy WhatsApp Ordering";
+
+            // Setup global WhatsApp CTA
+            document.querySelectorAll('.whatsapp-cta').forEach(btn => {
+                btn.href = `https://wa.me/${window.siteConfig.BUSINESS_WHATSAPP_NUMBER}`;
+                btn.target = "_blank";
+            });
+
+            // Load featured products
+            const featuredContainer = document.getElementById('featured-products');
+            const featuredProducts = window.products.filter(p => p.featured).slice(0, 4);
+
+            featuredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-img-wrap">
+                        <div class="product-badges">
+                            ${product.discount > 0 ? `<span class="badge sale">${product.discount}% OFF</span>` : ''}
+                        </div>
+                        <button class="wishlist-btn" data-id="${product.id}" onclick="wishlistManager.toggleWishlist('${product.id}')">🤍</button>
+                        <a href="product.html?id=${product.id}">
+                            <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <a href="product.html?id=${product.id}"><h3 class="product-title">${product.name}</h3></a>
+                        <div class="product-price-wrap">
+                            <span class="product-price">${utils.formatCurrency(product.price)}</span>
+                            ${product.originalPrice > product.price ? `<span class="product-original-price">${utils.formatCurrency(product.originalPrice)}</span>` : ''}
+                        </div>
+                        <a href="product.html?id=${product.id}" class="btn btn-outline btn-block">View Details</a>
+                    </div>
+                `;
+                featuredContainer.appendChild(card);
+            });
+
+            if(window.wishlistManager) window.wishlistManager.updateWishlistUI();
+        });
+    </script>
+</body>
+</html>

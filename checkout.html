@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Sareeloom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .checkout-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .checkout-form {
+            flex-grow: 1;
+        }
+
+        .checkout-summary {
+            background-color: var(--light-bg);
+            padding: 2rem;
+            border-radius: 4px;
+            height: max-content;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-section-title {
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-control.invalid {
+            border-color: #d32f2f;
+        }
+
+        .order-item-mini {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .summary-totals {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+            font-size: 1.1rem;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: 4px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1.5rem;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+
+        #order-success {
+            display: none;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .checkout-layout {
+                flex-direction: row;
+            }
+            .checkout-summary {
+                width: 400px;
+                flex-shrink: 0;
+            }
+            .form-row.two-col {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="index.html" class="logo site-name-display">Sareeloom</a>
+            <div style="font-weight: 500;">Secure Checkout</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="checkout-container" class="checkout-layout">
+            <div class="checkout-form">
+                <form id="order-form">
+                    <div class="form-section">
+                        <h2 class="form-section-title">Customer Information</h2>
+                        <div class="form-group">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" id="cust-name" class="form-control" required>
+                        </div>
+                        <div class="form-row two-col">
+                            <div class="form-group">
+                                <label class="form-label">Mobile Number (10 digits) *</label>
+                                <input type="tel" id="cust-mobile" class="form-control" pattern="[0-9]{10}" placeholder="9876543210" required>
+                                <div class="error-message" id="mobile-error">Please enter a valid 10-digit mobile number</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email (Optional)</label>
+                                <input type="email" id="cust-email" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="form-section-title">Delivery Address</h2>
+                        <div class="form-group">
+                            <label class="form-label">House / Flat Number *</label>
+                            <input type="text" id="addr-house" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Street / Area *</label>
+                            <input type="text" id="addr-street" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Landmark (Optional)</label>
+                            <input type="text" id="addr-landmark" class="form-control">
+                        </div>
+                        <div class="form-row two-col">
+                            <div class="form-group">
+                                <label class="form-label">City *</label>
+                                <input type="text" id="addr-city" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">State *</label>
+                                <select id="addr-state" class="form-control" required>
+                                    <option value="">Select State</option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Pincode (6 digits) *</label>
+                            <input type="text" id="addr-pincode" class="form-control" pattern="[0-9]{6}" required>
+                            <div class="error-message" id="pincode-error">Please enter a valid 6-digit pincode</div>
+                        </div>
+                    </div>
+
+                    <div class="form-section" style="border-bottom: none;">
+                        <h2 class="form-section-title">Order Notes (Optional)</h2>
+                        <div class="form-group">
+                            <textarea id="order-notes" class="form-control" rows="3" placeholder="Special instructions for delivery..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="checkout-summary">
+                <h2 style="font-size: 1.25rem; margin-bottom: 1.5rem;">Order Review</h2>
+                <div id="summary-items"></div>
+
+                <div class="summary-totals" id="summary-totals"></div>
+
+                <div style="background-color: #fff3e0; padding: 1rem; border-radius: 4px; margin-top: 1.5rem; font-size: 0.85rem; color: #e65100; border: 1px solid #ffe0b2;">
+                    <strong>Note:</strong> We will confirm your payment and delivery details on WhatsApp.
+                </div>
+
+                <button type="button" id="place-order-btn" class="whatsapp-btn">
+                    Order on WhatsApp
+                </button>
+            </div>
+        </div>
+
+        <div id="order-success">
+            <div style="font-size: 4rem; color: #25D366; margin-bottom: 1rem;">✓</div>
+            <h1 style="margin-bottom: 1rem;">Order Ready!</h1>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">WhatsApp has been opened with your order details.<br><strong>Please press SEND in WhatsApp to submit your order.</strong></p>
+
+            <div style="background: var(--light-bg); padding: 1.5rem; border-radius: 4px; display: inline-block; text-align: left; margin-bottom: 2rem;">
+                <div><strong>Order Reference:</strong> <span id="success-order-id"></span></div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-outline" id="copy-msg-btn">Copy Order Message</button>
+                <button class="btn btn-primary" id="reopen-wa-btn">Open WhatsApp Again</button>
+                <a href="index.html" class="btn btn-outline">Continue Shopping</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/whatsapp.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = cartManager.getCart();
+
+            if (cart.length === 0) {
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            // Render Summary
+            const summaryItems = document.getElementById('summary-items');
+            let itemsHtml = '';
+            cart.forEach(item => {
+                itemsHtml += `
+                    <div class="order-item-mini">
+                        <div>
+                            <div>${item.name} <span style="color:var(--text-muted)">x${item.quantity}</span></div>
+                            <div style="font-size:0.75rem; color:var(--text-muted)">ID: ${item.id}</div>
+                        </div>
+                        <div>${utils.formatCurrency(item.price * item.quantity)}</div>
+                    </div>
+                `;
+            });
+            summaryItems.innerHTML = itemsHtml;
+
+            const totals = cartManager.getCartTotals();
+            const summaryTotals = document.getElementById('summary-totals');
+
+            summaryTotals.innerHTML = `
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>${utils.formatCurrency(totals.subtotal)}</span>
+                </div>
+                ${totals.discount > 0 ? `
+                <div class="summary-row" style="color: #388e3c;">
+                    <span>Discount</span>
+                    <span>-${utils.formatCurrency(totals.discount)}</span>
+                </div>
+                ` : ''}
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>${totals.shipping === 0 ? 'FREE' : utils.formatCurrency(totals.shipping)}</span>
+                </div>
+                <div class="summary-row" style="font-size: 1.25rem; font-weight: bold; margin-top: 1rem;">
+                    <span>Total</span>
+                    <span>${utils.formatCurrency(totals.total)}</span>
+                </div>
+            `;
+
+            // Form Validation and Submission
+            const placeOrderBtn = document.getElementById('place-order-btn');
+            const form = document.getElementById('order-form');
+            let generatedMessage = '';
+            let currentOrderId = '';
+
+            placeOrderBtn.addEventListener('click', () => {
+                // Validate form manually to show custom messages if needed
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                // Custom validations
+                const mobile = document.getElementById('cust-mobile').value;
+                if (!/^\d{10}$/.test(mobile)) {
+                    document.getElementById('mobile-error').style.display = 'block';
+                    document.getElementById('cust-mobile').classList.add('invalid');
+                    return;
+                } else {
+                    document.getElementById('mobile-error').style.display = 'none';
+                    document.getElementById('cust-mobile').classList.remove('invalid');
+                }
+
+                const pincode = document.getElementById('addr-pincode').value;
+                if (!/^\d{6}$/.test(pincode)) {
+                    document.getElementById('pincode-error').style.display = 'block';
+                    document.getElementById('addr-pincode').classList.add('invalid');
+                    return;
+                } else {
+                    document.getElementById('pincode-error').style.display = 'none';
+                    document.getElementById('addr-pincode').classList.remove('invalid');
+                }
+
+                // Gather data
+                const customerDetails = {
+                    name: document.getElementById('cust-name').value,
+                    mobile: document.getElementById('cust-mobile').value,
+                    email: document.getElementById('cust-email').value,
+                    house: document.getElementById('addr-house').value,
+                    street: document.getElementById('addr-street').value,
+                    landmark: document.getElementById('addr-landmark').value,
+                    city: document.getElementById('addr-city').value,
+                    state: document.getElementById('addr-state').value,
+                    pincode: document.getElementById('addr-pincode').value,
+                    notes: document.getElementById('order-notes').value
+                };
+
+                // Generate ID and Message
+                currentOrderId = utils.generateOrderId();
+                generatedMessage = whatsappManager.generateOrderMessage(customerDetails, currentOrderId);
+
+                // Open WhatsApp
+                whatsappManager.openWhatsApp(generatedMessage);
+
+                // Show Success Screen
+                document.getElementById('checkout-container').style.display = 'none';
+                document.getElementById('order-success').style.display = 'block';
+                document.getElementById('success-order-id').textContent = currentOrderId;
+
+                // Clear cart
+                cartManager.clearCart();
+                cartManager.removeCoupon();
+            });
+
+            document.getElementById('copy-msg-btn').addEventListener('click', () => {
+                navigator.clipboard.writeText(generatedMessage).then(() => {
+                    utils.showToast('Order message copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+            });
+
+            document.getElementById('reopen-wa-btn').addEventListener('click', () => {
+                whatsappManager.openWhatsApp(generatedMessage);
+            });
+        });
+    </script>
+</body>
+</html>

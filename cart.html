@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Sareeloom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .cart-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .cart-items {
+            flex-grow: 1;
+        }
+
+        .cart-summary {
+            background-color: var(--light-bg);
+            padding: 2rem;
+            border-radius: 4px;
+            height: max-content;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item-img {
+            width: 100px;
+            height: 133px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cart-item-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-id {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .qty-controls button {
+            background: none;
+            border: none;
+            padding: 0.25rem 0.75rem;
+            cursor: pointer;
+        }
+
+        .qty-controls span {
+            padding: 0 0.5rem;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #d32f2f;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .summary-total {
+            font-size: 1.25rem;
+            font-weight: 600;
+            border-bottom: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .coupon-box {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .cart-layout {
+                flex-direction: row;
+            }
+            .cart-summary {
+                width: 350px;
+                flex-shrink: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+            <a href="index.html" class="logo site-name-display">Sareeloom</a>
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop All</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="icon-btn">
+                    🛒
+                    <span class="cart-count-badge" style="display: none;">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="section-title" style="text-align: left; margin-top: 2rem; margin-bottom: 0;">Shopping Cart</h1>
+
+        <div id="cart-container" class="cart-layout">
+            <!-- Rendered by JS -->
+        </div>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('cart-container');
+
+            function renderCart() {
+                const cart = cartManager.getCart();
+                const totals = cartManager.getCartTotals();
+
+                if (cart.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; width: 100%; padding: 5rem 0;">
+                            <div style="font-size: 4rem; margin-bottom: 1rem;">🛒</div>
+                            <h2>Your cart is waiting for something beautiful.</h2>
+                            <p style="color: var(--text-muted); margin-bottom: 2rem;">Discover our exquisite collection of sarees.</p>
+                            <a href="shop.html" class="btn btn-primary">Explore Sarees</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let itemsHtml = '<div class="cart-items">';
+                cart.forEach((item, index) => {
+                    itemsHtml += `
+                        <div class="cart-item">
+                            <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                            <div class="cart-item-details">
+                                <div>
+                                    <h3 class="cart-item-title">${item.name}</h3>
+                                    <div class="cart-item-id">ID: ${item.id}</div>
+                                    <div style="font-weight: 600; color: var(--primary-color);">${utils.formatCurrency(item.price)}</div>
+                                </div>
+                                <div class="cart-item-actions">
+                                    <div class="qty-controls">
+                                        <button onclick="updateQty(${index}, ${item.quantity - 1})">-</button>
+                                        <span>${item.quantity}</span>
+                                        <button onclick="updateQty(${index}, ${item.quantity + 1})">+</button>
+                                    </div>
+                                    <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                itemsHtml += '</div>';
+
+                const appliedCoupon = cartManager.getAppliedCoupon();
+
+                let summaryHtml = `
+                    <div class="cart-summary">
+                        <h3>Order Summary</h3>
+                        <div style="margin-top: 1.5rem;">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span>${utils.formatCurrency(totals.subtotal)}</span>
+                            </div>
+
+                            ${appliedCoupon ? `
+                                <div class="summary-row" style="color: #388e3c;">
+                                    <span>Discount (${appliedCoupon}) <button onclick="removeCoupon()" style="background:none; border:none; color:red; cursor:pointer; font-size:0.8rem;">[Remove]</button></span>
+                                    <span>-${utils.formatCurrency(totals.discount)}</span>
+                                </div>
+                            ` : ''}
+
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span>${totals.shipping === 0 ? 'FREE' : utils.formatCurrency(totals.shipping)}</span>
+                            </div>
+
+                            <div class="summary-row summary-total">
+                                <span>Total</span>
+                                <span>${utils.formatCurrency(totals.total)}</span>
+                            </div>
+
+                            ${!appliedCoupon ? `
+                                <div class="coupon-box">
+                                    <input type="text" id="coupon-input" class="form-control" placeholder="Coupon Code">
+                                    <button class="btn btn-outline" onclick="applyCoupon()">Apply</button>
+                                </div>
+                            ` : ''}
+
+                            <a href="checkout.html" class="btn btn-primary btn-block">Proceed to Checkout</a>
+
+                            <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+                                Shipping & taxes calculated at checkout.<br>
+                                Payment handled via WhatsApp.
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.innerHTML = itemsHtml + summaryHtml;
+            }
+
+            window.updateQty = function(index, newQty) {
+                if (newQty < 1) return;
+                cartManager.updateQuantity(index, newQty);
+                renderCart();
+            };
+
+            window.removeItem = function(index) {
+                cartManager.removeFromCart(index);
+                renderCart();
+            };
+
+            window.applyCoupon = function() {
+                const input = document.getElementById('coupon-input').value.trim().toUpperCase();
+                if (input) {
+                    cartManager.applyCoupon(input);
+                    renderCart();
+                }
+            };
+
+            window.removeCoupon = function() {
+                cartManager.removeCoupon();
+                renderCart();
+            };
+
+            renderCart();
+        });
+    </script>
+</body>
+</html>
